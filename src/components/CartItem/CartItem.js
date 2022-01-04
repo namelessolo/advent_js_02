@@ -1,7 +1,9 @@
-import React from "react";
-import chevron from "../../assets/chevron.svg";
+import React, { useContext } from "react";
+import { ReactComponent as Chevron } from "../../assets/chevron.svg";
+import { OrdersContext } from "../../providers/OrdersProvider";
 
-const CartItem = ({ order: { name, price, image, alt, quantity } }) => {
+const CartItem = ({ order: { name, price, image, alt, id, quantity } }) => {
+  const { increase, decrease } = useContext(OrdersContext);
   return (
     <li>
       <div className="plate">
@@ -13,15 +15,15 @@ const CartItem = ({ order: { name, price, image, alt, quantity } }) => {
         <p className="price">${price}</p>
       </div>
       <div className="quantity__wrapper">
-        <button className="decrease">
-          <img src={chevron} alt="" />
+        <button className="decrease" onClick={() => decrease(id)}>
+          <Chevron />
         </button>
         <div className="quantity">{quantity}</div>
-        <button className="increase">
-          <img src={chevron} alt="" />
+        <button className="increase" onClick={() => increase(id)}>
+          <Chevron />
         </button>
       </div>
-      <div className="subtotal">${price * quantity}</div>
+      <div className="subtotal">${(price * quantity).toFixed(2)}</div>
     </li>
   );
 };

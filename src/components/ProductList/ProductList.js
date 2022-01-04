@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
+import { OrdersContext } from "../../providers/OrdersProvider";
 import ProductListItem from "../ProductListItem/ProductListItem";
 
-const ProductList = ({ data, addOrder }) => {
+const ProductList = () => {
+  const { products } = useContext(OrdersContext);
   return (
     <div className="panel">
       <h1>To Go Menu</h1>
       <ul className="menu">
-        {data.map((product) => (
-          <ProductListItem product={product} addOrder={addOrder} key={product.id} data={data} />
+        {products.map((product) => (
+          <ProductListItem product={product} key={product.id} />
         ))}
       </ul>
     </div>
